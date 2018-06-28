@@ -11,7 +11,7 @@ class Game:
         with open(file, 'r') as f:
             self.cash, self.height, self.width = [int(x) for x in f.readline().split(' ')]
             self.waves = LinkedList()
-            self.waves_num = 0
+            self.waves_num = 0 #This is the amount of waves left, not current wave number
             for line in iter(f.readline, ''):
                 self.waves.add(Wave(*[int(x) for x in line.split(' ')]))
                 self.waves_num += 1
@@ -55,6 +55,36 @@ class Game:
             return True
         else:
             return False
+    def remove(self, row, col): #May need fixing 
+        if self.is_nonplant(row, col):
+            self.cash+=20
+            dict1=self.board[0]
+            del dict1[(row, col)]
+            self.board[0]=dict1
+        else:
+            dict1=self.board[0]
+            del dict1[(row, col)]
+            self.board[0]=dict1
+    def place_nonplant(self, row): #### FIX ME!!!
+        new_nonplant=Non_Plant()
+        dict1=self.board[0]
+        dict1[(row, )]
+    def place_plant(self, row, col):
+        dict1=self.board[0]
+        new_plant=Plant(35, 10)
+        assert self.cash>=0
+        self.cash-=new_plant.cost
+        assert dict1[(row, col)]==None
+        #Add functionality here to ensure that plants cannot be placed in rightmost column
+    def place_wave(self):
+        assert self.turn==self.waves_num*-1
+        self.place_nonplant(self.waves.head.c.row)
+        self.waves.head(self.waves.head.n)
+        self.waves_num-=1
+   
+
+
+
 
 
         
